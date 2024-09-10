@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:uitraning/mulity_select/widget/test_mulity_select.dart';
+import 'package:uitraning/mulity_select/widget/mulity_select.dart';
 
 void main() {
   runApp(const MyApp());
