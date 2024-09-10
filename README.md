@@ -1,16 +1,8 @@
-# uitraning
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot_1726003183](https://github.com/user-attachments/assets/564e8352-a810-454b-9651-6f5cf193a1e5)
+![Screenshot_1726003170](https://github.com/user-attachments/assets/e047ea4e-8c02-4bdf-8d56-da6f6e13141c)
+![Screenshot_1726003162](https://github.com/user-attachments/assets/8af55710-9bab-4d3e-962a-64db0c04f8d8)
+![Screenshot_1726003155](https://github.com/user-attachments/assets/a2f95b57-6619-4db6-8c9c-26b5b647d08a)
+![Screenshot_1726003147](https://github.com/user-attachments/assets/4978c147-7416-47a8-a7fc-2ae253562c39)
+![Screenshot_1726003198](https://github.com/user-attachments/assets/0c80ace9-ca00-422d-a022-3e7c68ad678e)
+![Screenshot_1726003188](https://github.com/user-attachments/assets/98c4c790-73a5-4086-9b3a-0a76ad595b5f)
+![Screenshot_1726003185](https://github.com/user-attachments/assets/2fd55f50-0a59-42bf-a7b2-1780676e3b3c)
