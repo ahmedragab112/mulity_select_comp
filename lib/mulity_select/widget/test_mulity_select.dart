@@ -8,29 +8,29 @@ import '../cubit/mulity_select_state.dart';
 class MultiSelectComponent extends StatelessWidget {
   const MultiSelectComponent({
     super.key,
-    required this.majors,
+    required this.options,
     required this.selectedIndexes,
     required this.onSelectionChanged,
   });
 
-  final List<String> majors;
+  final List<String> options;
   final List<int> selectedIndexes;
   final Function(List<int>) onSelectionChanged;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MajorsCubit(majors, selectedIndexes),
+      create: (context) => OptionsCubit(options, selectedIndexes),
       child: Builder(
         builder: (context) => _multiSelectBody(
           context,
-          context.read<MajorsCubit>(),
+          context.read<OptionsCubit>(),
         ),
       ),
     );
   }
 
-  Widget _multiSelectBody(BuildContext context, MajorsCubit cubit) =>
+  Widget _multiSelectBody(BuildContext context, OptionsCubit cubit) =>
       GestureDetector(
         onTap: () => _showBottomSheet(context, cubit),
         child: Container(
@@ -51,37 +51,37 @@ class MultiSelectComponent extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: _buildSelectedMajorsChips(context, cubit)),
+              Expanded(child: _buildSelectedOptionsChips(context, cubit)),
               const Icon(Icons.keyboard_arrow_down, color: Colors.black),
             ],
           ),
         ),
       );
 
-  Widget _buildSelectedMajorsChips(BuildContext context, MajorsCubit cubit) {
-    return BlocBuilder<MajorsCubit, MajorsState>(
+  Widget _buildSelectedOptionsChips(BuildContext context, OptionsCubit cubit) {
+    return BlocBuilder<OptionsCubit, OptionsState>(
       builder: (context, state) {
-        final selectedMajors =
-            state.selectedIndexes.map((index) => state.majors[index]).toList();
-        final showEllipsis = selectedMajors.length > 5;
+        final selectedOptions =
+            state.selectedIndexes.map((index) => state.options[index]).toList();
+        final showEllipsis = selectedOptions.length > 5;
 
         return Wrap(
           spacing: 8.0,
           runSpacing: 4.0,
-          children: selectedMajors.isEmpty
+          children: selectedOptions.isEmpty
               ? [
                   const Text('No selected options',
                       style: TextStyle(color: Colors.black))
                 ]
               : List<Widget>.generate(
                   state.showAllChips
-                      ? selectedMajors.length
+                      ? selectedOptions.length
                       : showEllipsis
                           ? 5
-                          : selectedMajors.length,
+                          : selectedOptions.length,
                   (index) => Chip(
                     label: Text(
-                      selectedMajors[index],
+                      selectedOptions[index],
                       style: const TextStyle(color: Colors.black),
                     ),
                     backgroundColor: Colors.white.withOpacity(0.3),
@@ -89,7 +89,7 @@ class MultiSelectComponent extends StatelessWidget {
                     onDeleted: () {
                       final updatedIndexes = List<int>.from(
                           state.selectedIndexes)
-                        ..remove(state.majors.indexOf(selectedMajors[index]));
+                        ..remove(state.options.indexOf(selectedOptions[index]));
                       cubit.updateSelection(updatedIndexes);
                       onSelectionChanged(updatedIndexes);
                     },
@@ -106,7 +106,7 @@ class MultiSelectComponent extends StatelessWidget {
     );
   }
 
-  void _showBottomSheet(BuildContext context, MajorsCubit cubit) =>
+  void _showBottomSheet(BuildContext context, OptionsCubit cubit) =>
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -133,12 +133,12 @@ class MultiSelectComponent extends StatelessWidget {
           );
         },
       ).then((value) {
-        cubit.filterMajors('');
+        cubit.filterOptions('');
       });
 
   Widget _majorBottomSheet(
-      MajorsCubit cubit, ScrollController scrollController) {
-    return BlocBuilder<MajorsCubit, MajorsState>(
+      OptionsCubit cubit, ScrollController scrollController) {
+    return BlocBuilder<OptionsCubit, OptionsState>(
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -163,7 +163,7 @@ class MultiSelectComponent extends StatelessWidget {
                             BorderSide(color: Colors.red.withOpacity(0.5)),
                       ),
                     ),
-                    onChanged: (text) => cubit.filterMajors(text),
+                    onChanged: (text) => cubit.filterOptions(text),
                   ),
                 ),
               ),
@@ -175,8 +175,10 @@ class MultiSelectComponent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         final allIndexes = List<int>.generate(
-                            state.majors.length, (index) => index);
-                        context.read<MajorsCubit>().updateSelection(allIndexes);
+                            state.options.length, (index) => index);
+                        context
+                            .read<OptionsCubit>()
+                            .updateSelection(allIndexes);
                         onSelectionChanged(allIndexes);
                       },
                       child: Container(
@@ -206,7 +208,7 @@ class MultiSelectComponent extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.read<MajorsCubit>().updateSelection([]);
+                        context.read<OptionsCubit>().updateSelection([]);
                         onSelectionChanged([]);
                       },
                       child: Container(
@@ -245,19 +247,19 @@ class MultiSelectComponent extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.red, width: 1)),
-                  child: _buildSelectedMajorsChips(context, cubit),
+                  child: _buildSelectedOptionsChips(context, cubit),
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              state.filteredMajors.isEmpty
+              state.filteredOptions.isEmpty
                   ? const SliverFillRemaining(
-                      child: Center(child: Text("No majors found")))
+                      child: Center(child: Text("No Options found")))
                   : SliverList.builder(
-                      itemCount: state.filteredMajors.length,
+                      itemCount: state.filteredOptions.length,
                       itemBuilder: (context, index) {
-                        final major = state.filteredMajors[index];
+                        final major = state.filteredOptions[index];
                         final isSelected = state.selectedIndexes.contains(
-                          state.majors.indexOf(major),
+                          state.options.indexOf(major),
                         );
                         return ListTile(
                           contentPadding:
@@ -275,14 +277,14 @@ class MultiSelectComponent extends StatelessWidget {
                           onTap: () {
                             final updatedIndexes =
                                 List<int>.from(state.selectedIndexes);
-                            final originalIndex = state.majors.indexOf(major);
+                            final originalIndex = state.options.indexOf(major);
                             if (isSelected) {
                               updatedIndexes.remove(originalIndex);
                             } else {
                               updatedIndexes.add(originalIndex);
                             }
                             context
-                                .read<MajorsCubit>()
+                                .read<OptionsCubit>()
                                 .updateSelection(updatedIndexes);
                             onSelectionChanged(updatedIndexes);
                           },

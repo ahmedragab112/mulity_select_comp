@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uitraning/mulity_select/widget/test_mulity_select.dart';
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: MultiSelectComponent(
-            majors: const [
+            options: const [
               'ahmed',
               'ragab',
               'salah',
@@ -26,8 +28,13 @@ class MyApp extends StatelessWidget {
               'test ',
               'test 2'
             ],
-            selectedIndexes: const [],
-            onSelectionChanged: (selectedIndexes) {},
+            selectedIndexes: const [
+              //inital selected indexes
+            ],
+            onSelectionChanged: (selectedIndexes) {
+              //indexs of the selected options
+              log(selectedIndexes.toString());
+            },
           ),
         ),
       ),

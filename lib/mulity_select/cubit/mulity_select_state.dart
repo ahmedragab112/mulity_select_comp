@@ -1,30 +1,31 @@
 import 'package:equatable/equatable.dart';
 
-class MajorsState extends Equatable {
-  final List<String> majors;
+class OptionsState extends Equatable {
+  final List<String> options;
   final List<int> selectedIndexes;
-  final List<String> filteredMajors;
+  final List<String> filteredOptions;
   final bool showAllChips;
-  const MajorsState(
-      {required this.majors,
+  const OptionsState(
+      {required this.options,
       required this.selectedIndexes,
-      required this.filteredMajors,
+      required this.filteredOptions,
       required this.showAllChips});
 
   @override
-  List<Object?> get props => [majors, selectedIndexes, filteredMajors, showAllChips];
+  List<Object?> get props =>
+      [options, selectedIndexes, filteredOptions, showAllChips];
 
-  MajorsState copyWith({
-    List<String>? majors,
+  OptionsState copyWith({
+    List<String>? options,
     List<int>? selectedIndexes,
     bool? showAllChips,
-    List<String>? filteredMajors,
+    List<String>? filteredOptions,
   }) {
-    return MajorsState(
-      majors: majors ?? this.majors,
+    return OptionsState(
+      options: options ?? this.options,
       showAllChips: showAllChips ?? this.showAllChips,
       selectedIndexes: selectedIndexes ?? this.selectedIndexes,
-      filteredMajors: filteredMajors ?? this.filteredMajors,
+      filteredOptions: filteredOptions ?? this.filteredOptions,
     );
   }
 }
