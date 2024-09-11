@@ -25,12 +25,13 @@ class MyApp extends StatelessWidget {
               'mohamed',
               'farage',
               'mostafa',
-              'test ',
-              'test 2'
+              'Mohamed Elshimi',
+              'Sief Hesham'
             ],
             selectedIndexes: const [
               //inital selected indexes
             ],
+
             onSelectionChanged: (selectedIndexes) {
               //indexs of the selected options
               log(selectedIndexes.toString());
